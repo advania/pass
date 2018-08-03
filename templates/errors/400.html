@@ -1,0 +1,12 @@
+{{- define "content" -}}
+			<h2>400 - Bad Request</h2>
+
+			<p>
+				Your request is malformed in some way. Please go back and try
+				again.
+			</p>
+
+			<h2>Detailed error</h2>
+
+			<p>{{ .TemplateVariables.ReturnedString }}.</p>
+{{- end -}}

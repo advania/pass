@@ -1,0 +1,13 @@
+{{- define "base" -}}
+Message-Id: <{{ .MessageID }}>
+Date: {{ .Now.Format "Mon, 02 Jan 2006 15:04:05 -0700" }}
+From: {{ .MailFromName }} <{{ .MailFrom }}>
+To: {{ .MailTo }}
+Subject: One time password link {{ .UuidFirst }} from {{ .MailFromName }}
+
+{{ .MailFromName }} has sent you a one-time password link, probably because you requested one.
+
+{{ .URL }}/{{ .Uuid }}
+
+Please note that this link will expire automatically at: {{ .Expires.Format "2006-01-02 15:04:05" }}.
+{{- end -}}

@@ -1,0 +1,61 @@
+{{- define "content" -}}
+			<h2>Created a new password link</h2>
+
+			<div class="boxButton">
+				<input type="text" title="secret" id="secret" readonly="readonly" value="{{ .Page_URL }}/{{ .TemplateVariables.ReturnedString }}" />
+				<button id="copy">Copy link</button>
+			</div>
+
+			<h2>Send link via e-mail</h2>
+
+			<form method="post" action="/{{ .TemplateVariables.ReturnedString }}/email">
+				<div class="boxButton">
+					<input type="hidden" name="expires" value="{{ .TemplateVariables.Expires.Format "2006-01-02 15:04:05" }}" />
+					<input type="email" id="email" name="email" placeholder="Enter e-mail address" autocomplete="off" />
+					<button type="submit">Send</button>
+				</div>
+			</form>
+
+			<h2>Send link via SMS</h2>
+
+			<form method="post" action="/{{ .TemplateVariables.ReturnedString }}/sms">
+				<div class="boxButton">
+					<input type="hidden" name="sendSecurely" value="1" />
+					<input type="tel" id="phone" name="phone" placeholder="Enter phone number" autocomplete="off" />
+					<button type="submit">Send</button>
+				</div>
+			</form>
+
+			<hr />
+
+			<h2>Please note</h2>
+
+			<p>This link will expire automatically at: {{ .TemplateVariables.Expires.Format "2006-01-02 15:04:05" }}.</p>
+
+			<hr />
+
+			<h2>Send password insecurely in plain-text via SMS</h2>
+
+			<button type="button" id="insecure">This customer is unable to open links in SMS or emails</button>
+
+			<div id="insecure_sms" class="hidden">
+				<p>
+					This form will send the password itself, in plain-text, to the user's phone
+					via SMS. This method of delivery is <em>insecure</em> and should
+					<strong>never</strong> be used!
+				</p>
+				<p>
+					If the system this password is for offers a way to force the user to change
+					this password on first use, please ensure you enable that feature!
+				</p>
+				
+				<form method="post" action="/{{ .TemplateVariables.ReturnedString }}/sms">
+					<div class="boxButton">
+						<input type="hidden" name="sendSecurely" value="0" />
+						<input type="tel" id="phone" name="phone" placeholder="Enter phone number" autocomplete="off">
+						<button type="submit">Send</button>
+					</div>
+				</form>
+			</div>
+
+{{- end -}}

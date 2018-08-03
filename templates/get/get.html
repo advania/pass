@@ -1,0 +1,16 @@
+{{- define "content" -}}
+			{{ template "dbError" . }}
+
+			<div id="dbForm">
+				<h2>Get a new password</h2>
+
+				<p>You are here because you were sent a password link.</p>
+				<p>Please note that this link is very special, it can only be opened ONCE!</p>
+
+				<form method="post">
+					<div class="fullWidth">
+						<button id="submitToDB" type="submit" value="link">Get my password!</button>
+					</div>
+				</form>
+			</div>
+{{- end -}}

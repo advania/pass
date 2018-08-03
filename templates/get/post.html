@@ -1,0 +1,23 @@
+{{- define "content" -}}
+			<h2>Get a new password</h2>
+
+			<div class="boxButton">
+				<input name="secret" id="secret" readonly="true" value="{{ .TemplateVariables.ReturnedString }}" />
+
+				<button id="copy">Copy</button>
+			</div>
+
+			<h2>I have the password, now what</h2>
+
+			<p>
+				Add it to your <a href="https://keepassxc.org/">password manager</a>! Or
+				memorize it... Because once you go away from this page, you can not retreive
+				it from here again!
+			</p>
+
+			<p>
+				Test using it on the system it was created for. If it works great! But if the
+				system lets you, you should change it so that not even the sender knows your
+				password.
+			</p>
+{{- end -}}

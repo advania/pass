@@ -1,0 +1,49 @@
+{{- define "content" -}}
+			<h2>Created a new password</h2>
+
+			<p>
+				A link to retreive the password you submitted has been sent to
+				{{ .TemplateVariables.ReturnedString }}.
+			</p>
+
+			<p>
+				Please ensure that you notify them using other channels such as email or ticket
+				response so they know which system it is intended for.
+			</p>
+
+			<h2>SMS Delivery Status</h2>
+
+			<div id="smsId" class="hidden">{{ .TemplateVariables.SenderId }}</div>
+
+			<div class="sms_status sms_connecting">
+				<p>Attempting to get SMS delivery status from server. Please wait.</p>
+			</div>
+
+			<div class="sms_status sms_queued hidden">
+				<p>The sms has reached the messaging server and is waiting in queue.</p>
+			</div>
+
+			<div class="sms_status sms_sent hidden">
+				<p>The sms has been sent to the phone provider and is waiting to be delivered to the end user.</p>
+			</div>
+
+			<div class="sms_status sms_delivered hidden">
+				<p>The sms has been delivered to the end user device.</p>
+			</div>
+
+			<div class="sms_status sms_undelivered hidden">
+				<p>TODO: error "undelivered"?</p>
+			</div>
+
+			<div class="sms_status sms_failed hidden">
+                <p>TODO: error "failed"?</p>
+			</div>
+
+			<div class="sms_status sms_expired hidden">
+				<p>The sms has been in a non-final state so long that i've stopped checking.</p>
+			</div>
+
+			<div class="sms_status sms_error hidden">
+				<p>Error or timeout while communicating with backend.</p>
+			</div>
+{{- end -}}

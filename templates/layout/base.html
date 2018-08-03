@@ -1,0 +1,27 @@
+{{- define "base" -}}
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+
+		<meta name="name" content="{{ .Page_Title }}">
+		<meta name="description" content="One time password link system">
+		<meta name="theme-color" content="#000">
+
+		<link rel="canonical" href="{{ .Page_URL }}" />
+
+		<title>{{ .Page_Title }}</title>
+
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="/css?{{ .CSS_IntegrityHash }}" crossorigin="anonymous" integrity="sha512-{{ .CSS_IntegrityHash }}">
+		<script src="/js?{{ .JS_IntegrityHash }}" crossorigin="anonymous" integrity="sha512-{{ .JS_IntegrityHash }}" defer></script>
+	</head>
+	<body>
+		<div id="content">
+			<a href="/"><img src="/logo" alt="logo" /></a>
+
+			{{ template "content" . }}
+		</div>
+	</body>
+</html>
+{{- end -}}

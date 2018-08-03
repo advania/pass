@@ -1,0 +1,20 @@
+{{- define "content" -}}
+			<h2>Error</h2>
+
+			<p>The password with id <tt>{{ .TemplateVariables.ReturnedString }}</tt> does not exist.</p>
+
+			<h2>Possible reasons</h2>
+
+			<ul>
+				<li>It never existed (wrong link?)</li>
+				<li>You already retrieved it</li>
+				<li>Someone else retrieved it before you did</li>
+			</ul>
+
+			<h2>What to do now</h2>
+
+			<p>
+				You should notify the sender of the password link that it did not work and that
+				the password might be compromised and that you need a new one issued.
+			</p>
+{{- end -}}

@@ -1,0 +1,37 @@
+{{- define "content" -}}
+			{{ template "dbError" . }}
+
+			<div id="dbForm">
+				<h2>Create a new password link</h2>
+
+				<form method="post">
+					<div class="boxButton">
+						<input
+								type="text"
+								name="secret"
+								id="secret"
+								placeholder="Enter password"
+								autocomplete="off"
+								autofocus>
+						<button
+								id="submitToDB"
+								type="submit"
+								name="action"
+								value="link">
+							Submit
+						</button>
+					</div>
+				</form>
+
+				<h2>Important information</h2>
+
+				<ul>
+					<li>Use good, strong passwords</li>
+					<li>If you send someone a password, make sure only they get it</li>
+					<li>
+						If your user tells you the password was not there, make a NEW password, do not
+						send the same one password again!
+					</li>
+				</ul>
+			</div>
+{{- end -}}
