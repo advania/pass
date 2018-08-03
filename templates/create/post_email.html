@@ -1,0 +1,13 @@
+{{- define "content" -}}
+			<h2>Created a new password</h2>
+
+			<p>
+				A link to retreive the password you submitted has been sent to
+				{{ .TemplateVariables.Recipient }}.
+			</p>
+
+			<p>
+				Please ensure that you notify them using other channels such as email or ticket
+				response so they know which system it is intended for.
+			</p>
+{{- end -}}

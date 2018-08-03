@@ -1,0 +1,25 @@
+{{- define "content" -}}
+			<h2>Select a delivery method for the password</h2>
+
+			<div class="boxButton">
+				<input type="password" title="secret" id="secret" readonly="readonly" value="{{ .TemplateVariables.URL }}" />
+				<button id="copy">Copy link</button>
+			</div>
+
+			<div class="choice">
+				<h2>Send link via e-mail</h2>
+
+				<form method="post" action="/{{ .TemplateVariables.UUID }}/email">
+					<div class="boxButton">
+						<input type="email" id="email" name="email" placeholder="Enter e-mail address" autocomplete="off" />
+						<button type="submit">Send</button>
+					</div>
+				</form>
+			</div>
+
+			<hr />
+
+			<h2>Please note</h2>
+
+			<p>Please note that this link will expire automatically in a week's time.</p>
+{{- end -}}

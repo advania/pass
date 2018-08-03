@@ -1,0 +1,32 @@
+{
+    "Certificate": {
+        "File": "your.crt",
+        "Key": "your.key"
+    },
+    "HSTS": {
+        "MaxAge":  63072000,
+        "IncludeSubDomains": false,
+        "Preload": false
+    },
+    "Hostname": "pass.example.com",
+    "ListenAddress": "[::1]:4443",
+    "PDOString": "host=pass.example.com. port=5432 dbname=passwords user=password_frontend",
+    "Secret": "a good 64+ character site secret",
+    "PasswordLength": {
+        "Min": 6,
+        "Max": 10000
+    },
+    "TemplatePath": "templates",
+    "Title": "MEH Pass v0.7",
+    "TrustedProxies": [],
+    "TrustedProxyIPHeader": "",
+    "Addons": {
+        "email": {
+            "Server": "relay.example.com:smtp",
+            "Sender": {
+                "Address": "test@example.com",
+                "Name": "Example"
+            }
+        }
+    }
+}
