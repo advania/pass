@@ -279,7 +279,7 @@ func create(rv *requestVariables) (*template.Template, *TemplateVariables, error
 func (p *Pass) getIntegrityHash(filename string) string {
 	var f *os.File
 	var err error
-	if f, err = os.Open(filename); err != nil {
+	if f, err = os.Open(p.ResolveTemplatePath(filename)); err != nil {
 		log.Fatalln(err)
 	}
 	defer f.Close()
@@ -526,11 +526,11 @@ func resolveClientIP(rv *requestVariables) {
 
 // serveStatic sets the appropriate content type and cache control headers
 // before sending the file body to the requesting client
-func serveStatic(rv *requestVariables, name string, mimeType string) {
+func (p *Pass) serveStatic(rv *requestVariables, name string, mimeType string) {
 	rv.w.Header().Set("Content-Type", mimeType)
 	rv.w.Header().Set("Cache-Control", "max-age=2592000")
 
-	http.ServeFile(rv.w, rv.r, name)
+	http.ServeFile(rv.w, rv.r, p.ResolveTemplatePath(name))
 }
 
 // onBeforeRequest must be called before a request handler attempts to access
@@ -546,16 +546,16 @@ func handler(p *Pass, rv *requestVariables) {
 	if rv.r.Method == http.MethodGet {
 		switch rv.path[0] {
 		case "favicon.ico":
-			serveStatic(rv, "static/favicon.ico", "image/x-icon")
+			p.serveStatic(rv, "static/favicon.ico", "image/x-icon")
 			return
 		case "css":
-			serveStatic(rv, "static/css.css", "text/css")
+			p.serveStatic(rv, "static/css.css", "text/css")
 			return
 		case "js":
-			serveStatic(rv, "static/js.js", "application/javascript")
+			p.serveStatic(rv, "static/js.js", "application/javascript")
 			return
 		case "logo":
-			serveStatic(rv, "static/logo_header.png", "image/png")
+			p.serveStatic(rv, "static/logo_header.png", "image/png")
 			return
 		case "robots.txt":
 			rv.w.Header().Set("Content-Type", "text/plain")
