@@ -1,0 +1,97 @@
+* {
+	padding: 0;
+	margin: 0;
+}
+
+h2 {
+	margin: .5em 0;
+}
+
+ul {
+	margin-left: 2em;
+}
+
+body, a {
+	background-color: #fff;
+	color: #222;
+	text-decoration: none;
+
+	font-family: sans-serif;
+}
+
+.hidden {
+	display: none;
+}
+
+#content {
+	width: 90%;
+	max-width: 800px;
+	margin: 1em auto;
+}
+
+/* So that it looks good on mobile devices */
+@media only screen and (max-width: 600px) {
+	#content {
+		width: 90%;
+		padding: 0 10px;
+	}
+}
+
+p {
+	padding-bottom: 1em;
+}
+
+tt {
+	font-size: 1.5em;
+	color: #EE5555;
+}
+
+#insecure {
+	width: 100%;
+	border: 1px solid #ff117d;
+}
+
+input, button {
+	padding: .5em;
+	border: 1px solid #4ebfd9;
+
+	font-size: 1.2em;
+	background-color: #fafffa;
+	color: #222;
+	margin-top: 5px;
+}
+
+.fullWidth button {
+	width: 100%;
+}
+
+.boxButton {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	margin-top: -5px;
+}
+
+.boxButton input {
+	order: 0;
+	flex-grow: 8;
+
+	width: 80%;
+}
+
+.boxButton button {
+	order: 1;
+	flex-grow: 1;
+
+	width: 100px;
+
+	margin-left: .5em;
+}
+
+hr {
+	margin: 1em 0;
+}
+
+:disabled, .disabled {
+	opacity: 0.5;
+}

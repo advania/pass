@@ -1,0 +1,15 @@
+{{- define "base" -}}
+Content-Transfer-Encoding: 8bit
+Content-type: text/plain; charset=UTF-8
+Message-ID: <{{ .MessageID }}>
+Date: {{ .Now.Format "Mon, 02 Jan 2006 15:04:05 -0700" }}
+From: {{ .MailFromName }} <{{ .MailFrom }}>
+To: {{ .MailTo }}
+Subject: {{ call .SubjectFilter "utf-8" (print "One time password link " .UUIDFirst " from " .MailFromName) }}
+
+{{ .MailFromName }} has sent you a one-time password link, probably because you requested one.
+
+{{ .URL }}/{{ .UUID }}
+
+Please note that this link will expire automatically in a week's time.
+{{- end -}}
