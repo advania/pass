@@ -1,5 +1,5 @@
 -- For HMAC and pgp_sym_encrypt
-create extension pgcrypto;
+create extension if not exists pgcrypto;
 
 -- Table
 create table passwords
