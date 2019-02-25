@@ -121,27 +121,26 @@ func (pp *databaseConnection) close() {
 
 func newDatabaseConnectionVariables(sv *serverVariables) (dbConn database, err error) {
 	var db *sql.DB
-	db, err = sql.Open("postgres", sv.cfg.PDOString)
-	if err != nil {
-		return nil, NewHTTPError(http.StatusInternalServerError, err)
+	if db, err = sql.Open("postgres", sv.cfg.PDOString); err != nil {
+		return
 	}
 
 	if err = db.Ping(); err != nil {
-		return nil, NewHTTPError(http.StatusInternalServerError, err)
+		return
 	}
 
 	if _, err = db.Exec("set session characteristics as transaction isolation level serializable"); err != nil {
-		return nil, NewHTTPError(http.StatusInternalServerError, err)
+		return
 	}
 
 	var createStmt *sql.Stmt
 	if createStmt, err = db.Prepare("select * from create_password($1, $2)"); err != nil {
-		return nil, NewHTTPError(http.StatusInternalServerError, err)
+		return
 	}
 
 	var getStmt *sql.Stmt
 	if getStmt, err = db.Prepare("select * from get_password($1, $2)"); err != nil {
-		return nil, NewHTTPError(http.StatusInternalServerError, err)
+		return
 	}
 
 	return &databaseConnection{
