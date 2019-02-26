@@ -72,7 +72,7 @@ type TemplateVariables struct {
 	Recipient   string `json:"recipient,omitempty"`
 	SenderID    string `json:"senderid,omitempty"`
 	Secret      string `json:"secret,omitempty"`
-	ErrorString string `json:"-"`
+	ErrorString string `json:"error,omitempty"`
 }
 
 var contentSecurityPolicyHTML = strings.Join([]string{
@@ -383,7 +383,7 @@ func (p *Pass) OutputHeaders(rw http.ResponseWriter, r *http.Request) {
 
 // renderPageJSON does the same as RenderPage, but for json requests
 // only called by RenderPage, do not call directly
-func (p *Pass) renderPageJSON(rw http.ResponseWriter, r *http.Request, innerTemplate *template.Template, tv interface{}) {
+func (p *Pass) renderPageJSON(rw http.ResponseWriter, r *http.Request, tv interface{}) {
 	rw.Header().Add("Content-Type", "application/json")
 	if b, err := json.MarshalIndent(tv, "", "  "); err != nil {
 		rw.WriteHeader(http.StatusInternalServerError)
@@ -403,7 +403,7 @@ func (p *Pass) RenderPage(rw http.ResponseWriter, r *http.Request, innerTemplate
 			return
 		}
 
-		p.renderPageJSON(rw, r, innerTemplate, tv)
+		p.renderPageJSON(rw, r, tv)
 		return
 	}
 
@@ -420,40 +420,17 @@ func (p *Pass) RenderPage(rw http.ResponseWriter, r *http.Request, innerTemplate
 
 		// Assume templating is broken, output error string raw to client
 		rw.WriteHeader(http.StatusInternalServerError)
-		fmt.Fprintln(rw, "Unexpected error while rendering page!")
-	}
-}
-
-// renderErrorPageJSON does the same as RenderErrorPage, but for json requests
-// only called by RenderErrorPage, do not call directly
-func (p *Pass) renderErrorPageJSON(rw http.ResponseWriter, r *http.Request, errStr string) {
-	rw.Header().Add("Content-Type", "application/json")
-	errorJSON := struct{ Error string }{
-		Error: errStr,
-	}
-
-	if b, err := json.MarshalIndent(errorJSON, "", "  "); err != nil {
-		rw.WriteHeader(http.StatusInternalServerError)
-		log.Printf("renderErrorPageJSON err %v\n", err)
-	} else {
-		rw.Write(b)
+		fmt.Fprintln(rw, "Unexpected error, please try again later.")
 	}
 }
 
 // RenderErrorPage outputs a rendered error template, no output must be made
 // after a call to this function!
 func (p *Pass) RenderErrorPage(rw http.ResponseWriter, r *http.Request, err error) {
-	var httpStatusCode int
-	var errStr string
-	var innerTemplate *template.Template
-	httpStatusCode, innerTemplate, errStr = p.serverError(err)
+	httpStatusCode, innerTemplate, errStr := p.serverError(err)
 
+	p.OutputHeaders(rw, r)
 	rw.WriteHeader(httpStatusCode)
-
-	if helpers.HTTPAcceptCheck("application/json", r.Header) {
-		p.renderErrorPageJSON(rw, r, errStr)
-		return
-	}
 
 	tv := TemplateVariables{}
 	tv.ErrorString = errStr
