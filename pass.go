@@ -435,6 +435,9 @@ func (p *Pass) RenderErrorPage(rw http.ResponseWriter, r *http.Request, err erro
 	tv := TemplateVariables{}
 	tv.ErrorString = errStr
 
+	// Used in the ErrorsPwNotFound template
+	tv.UUID = strings.Split(r.URL.Path[1:], "/")[0]
+
 	p.RenderPage(rw, r, innerTemplate, tv)
 }
 
