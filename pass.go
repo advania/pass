@@ -399,7 +399,7 @@ func (p *Pass) RenderPage(rw http.ResponseWriter, r *http.Request, innerTemplate
 
 	if helpers.HTTPAcceptCheck("application/json", r.Header) {
 		if r.Method != http.MethodPost {
-			p.RenderErrorPage(rw, r, NewHTTPError(http.StatusMethodNotAllowed, fmt.Errorf("application/json only accepted over POST requests")))
+			rw.WriteHeader(http.StatusMethodNotAllowed)
 			return
 		}
 
