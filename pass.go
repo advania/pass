@@ -19,7 +19,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/meh-is/pass/helpers"
+	"github.com/advania/pass/helpers"
 
 	"github.com/lib/pq"
 )
