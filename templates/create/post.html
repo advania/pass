@@ -1,9 +1,11 @@
 {{- define "content" -}}
 			<h2>Select a delivery method for the password</h2>
 
-			<div class="boxButton">
-				<input type="password" title="secret" id="secret" readonly="readonly" value="{{ .TemplateVariables.URL }}" />
-				<button id="copy">Copy link</button>
+			<div class="choice">
+				<div class="boxButton">
+					<input type="password" title="secret" id="secret" readonly="readonly" value="{{ .TemplateVariables.URL }}" />
+					<button id="copy">Copy link</button>
+				</div>
 			</div>
 
 			<div class="choice">
@@ -11,7 +13,7 @@
 
 				<form method="post" action="/{{ .TemplateVariables.UUID }}/email">
 					<div class="boxButton">
-						<input type="email" id="email" name="email" placeholder="Enter e-mail address" autocomplete="off" />
+						<input type="email" id="email" name="email" placeholder="E-mail address" autocomplete="off" />
 						<button type="submit">Send</button>
 					</div>
 				</form>
